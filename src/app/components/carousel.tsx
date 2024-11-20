@@ -1,17 +1,19 @@
 'use client'
 
-          
+
 import { useState } from "react";
 
-export  function Carousel() {
+export function Carousel() {
     const cards = [
-        { id: 1, title: "AMZN", description: "Rendimiento",image:  '../images/amazon.ico' },
-        { id: 2, title: "META", description: "Rendimiento",image: '../images/meta.ico'},
-        { id: 3, title: "MFST", description: "Rendimiento",image: '../images/microsoft.ico' },
-        { id: 4, title: "NOVN.SW", description: "Rendimiento",image: '../images/novartis.ico' },
-        { id: 5, title: "PEP", description: "Rendimiento",image: '../images/pepsi.ico' },
-        { id: 6, title: "V", description: "Rendimiento",image: '../images/visa.ico' },
-        { id: 7, title: "WTM", description: "Rendimiento",image:  '../images/walmart.ico' },
+        { id: 1, title: "AMZN", image: '../images/amazon.ico' },
+        { id: 2, title: "GOOGL", image: '../images/google.ico' },
+        { id: 3, title: "META", image: '../images/meta.ico' },
+        { id: 4, title: "MFST", image: '../images/microsoft.ico' },
+        { id: 5, title: "NOVN.SW", image: '../images/novartis.ico' },
+        { id: 6, title: "PEP", image: '../images/pepsi.ico' },
+        { id: 7, title: "V", image: '../images/visa.ico' },
+        { id: 8, title: "WTM", image: '../images/walmart.ico' },
+        
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,12 +38,16 @@ export  function Carousel() {
                 >
                     {cards.map((card) => (
                         <div key={card.id} className="w-1/4 flex-shrink-0 p-4  ">
-                            <div className="card w-full shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                                <div className="card-body">
-                                    <img src={card.image} className="w-16 h-16"></img>
-                                    <h2 className="card-title ml-24 mt-[-60px]">{card.title}</h2>
-                                    <p className="mt-10">{card.description}</p>
+                            <div className="card w-full shadow-lg rounded bg-[rgb(243,246,249)] border-solid border-2 border-[#F3F6F9]  ">
+                                <div className="card-body flex flex-row items-center p-4">
+                                    <img src={card.image} className="w-16 h-16 ml-4"></img>
+
+                                    <div className="flex flex-row ">
+                                        <h2 className="card-title ">{card.title}</h2>
+                                        <h3 className="text-lg text-red-600 pl-9"> - 1.18%</h3>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     ))}
@@ -67,76 +73,6 @@ export  function Carousel() {
     );
 }
 
-
-{/* 
-            <div className="carousel rounded-box mt-20 space-x-5">
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/amazon.ico" alt="" className="w-[80px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">AMZN</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/meta.ico" alt="" className="w-[65px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">META</h3>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/microsoft.ico" alt="" className="w-[65px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">MSFT</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/novartis.ico" alt="" className="w-[75px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">NOVN.SW</h3>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/pepsi.ico" alt="" className="w-[65px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">PEP</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/visa.ico" alt="" className="w-[65px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">V</h3>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="carousel-item">
-                    <div className="card w-96 shadow-xl bg-[#F3F6F9] border-solid border-2 border[#F3F6F9] rounded-none">
-                        <div className="card-body ">
-                            <img src="../imagenes/walmart.ico" alt="" className="w-[65px] h-[55px]" />
-                            <h3 className="card-title ml-20 mt-[-50px]">WTM</h3>
-                        </div>
-                    </div>
-                </div>
-
-            </div> */}
 
 
 
