@@ -1,12 +1,17 @@
 'use client'
+
+import { useTranslation } from "next-i18next";
+import '../i18n';
+
 export function Footer() {
+    const {t} = useTranslation();
     return (
         <>
             <footer className="footer footer-center bg-[#F3F6F9] text-primary-content p-10">
                 <aside>
                 <img src="../images/logo-nasdaq.png" className="w-30 h-16"></img>
               
-                    <p className="text-black">Copyright © {new Date().getFullYear()} - All right reserved</p>
+                    <p className="text-black"> {t('subtitleFooter1')} {new Date().getFullYear()} - {t('subtitleFooter2')}</p>
                 </aside>
                 <nav>
                     <div className="grid grid-flow-col gap-4">

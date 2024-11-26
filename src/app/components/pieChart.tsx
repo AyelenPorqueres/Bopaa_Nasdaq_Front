@@ -1,35 +1,45 @@
-'use client'
+import React from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import { useTranslation } from 'next-i18next';
 
-import React from "react";
-import Chart from "react-google-charts";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
- export function PieChart() {
-    const data = [
-      ["Task", "Hours per Day"],
-      ["Work", 9],
-      ["Eat", 2],
-      ["Commute", 2],
-      ["Watch TV", 2],
-      ["Sleep", 7],
-    ];
-  
-    const options = {
-      title: "My Daily Activities",
-      backgroundColor: 'transparent',
+export const data = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
 
-    };
-    return (
-    <div className="mb-7 mr-6 bg-[#dbe8f5]  shadow-lg rounded w-[40%]">
-    
-      <Chart
-        chartType="PieChart"
-        data={data}
-        options={options}
-        width={"100%"}
-        height={"400px"}
-      />
-    </div>
-    );
+export function PieChart() {
+  const {t} = useTranslation();
+  return (
+  <div className="mb-10 mr-6 mt-5 bg-[rgb(243,246,249)] shadow-lg rounded w-[40%]">
+  <p className='pt-5 ml-2 text-lg font-bold'>{t('titlePie')}</p>
+  <div className="h-[1px] bg-slate-400 ml-2 mr-2 mt-2"></div>
+  <Pie data={data} />
+  </div>
 
-  }
-
+)
+}
