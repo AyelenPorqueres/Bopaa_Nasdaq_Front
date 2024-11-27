@@ -25,12 +25,12 @@ export function Menu() {
 
       <div className="navbar bg-base-100 px-4 py-4 sm:flex sm:items-center sm:justify-between ">
         <div className="flex-1">
-          <img src="./images/logo-nasdaq.png" alt="" className="w-44 h-14" />
+          <a href="/"><img src="./images/logo-nasdaq.png" alt="" className="w-44 h-14" /></a>
         </div>
 
         <div className="flex-none  ">
           <ul className="menu menu-horizontal px-1 space-x-3  ">
-            <li className="h-9 rounded-lg border-solid border-2  border[#F3F6F9] bg-[#F3F6F9] shadow-md"><a>{t('buttons.index')} NDX</a></li>
+            <li className="h-9 rounded-lg border-solid border-2  border[#F3F6F9] bg-[#F3F6F9] shadow-md"><a href="/indice">{t('buttons.index')} NDX</a></li>
          
            <li className=" h-9 rounded-lg border-solid border-2 border[#F3F6F9] bg-[#F3F6F9] shadow-md z-10" >
               <details >
