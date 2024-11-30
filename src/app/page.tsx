@@ -8,9 +8,6 @@ import { Footer } from "./components/footer";
 import { useState } from "react";
 import { PieChart } from "./components/pieChart";
 
-
-
-
 export default function Home() {
   const [selectedCard, setSelectedCard] = useState<any>({ id: 1, title: "AMZN", name: "AMAZON", image: '../images/amazon.ico' });
 
@@ -19,15 +16,14 @@ export default function Home() {
     setSelectedCard(card)
   }
 
-  
-
+  const cantDias = 5;
   return (
     <>
       <Menu></Menu>
       <Banner></Banner>
       <Carousel selectedCard= {selectedCard} onSelectedCard = {(card:any)=> onSelectedCard(card)}></Carousel>
       <div className="flex">
-      <LineChart selectedCard={selectedCard}></LineChart>
+      <LineChart selectedCard={selectedCard} cantDias={cantDias}></LineChart>
       <PieChart></PieChart>
       </div>
       <Footer></Footer>

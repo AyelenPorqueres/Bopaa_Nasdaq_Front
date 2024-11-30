@@ -1,6 +1,4 @@
 'use client'
-
-
 import { useState } from "react";
 
 export function Carousel(props:any) {
@@ -15,7 +13,8 @@ export function Carousel(props:any) {
         { id: 8, title: "WTM",name: "WALMART", image: '../images/walmart.ico' },
 
     ];
-    const {selectedCard, onSelectedCard}: {selectedCard: any, onSelectedCard:Function} = props;
+    
+    const {selectedCard, onSelectedCard} : {selectedCard: any, onSelectedCard:Function} = props;
     const [currentIndex, setCurrentIndex] = useState(0);
     const cardsPerSlide = 4;
     const totalSlides = Math.ceil(cards.length / cardsPerSlide);
@@ -48,7 +47,7 @@ export function Carousel(props:any) {
                         <div key={card.id} className="w-1/4 flex-shrink-0 p-4 
                         ">
                             <div className={`card w-full shadow-lg rounded bg-[rgb(243,246,249)] border-solid border-2  cursor-pointer ${
-                                selectedCard?.id === card.id ?  " bg-[#dcebfa]  w-ful" : ""
+                                selectedCard?.id === card.id ?  " bg-[#b9d5f1]  w-ful" : ""
                               }`} onClick={()=> onSelectedCard(card) }>
                                 <div className="card-body flex flex-row items-center p-4">
                                     <img src={card.image} className="w-16 h-16 ml-4"></img>
