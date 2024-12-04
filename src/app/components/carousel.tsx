@@ -44,7 +44,7 @@ export function Carousel(props: any) {
 
                                     <div className="flex flex-row ">
                                         <h2 className="card-title ">{card.codEmpresa}</h2>
-                                        <h3 className={`text-lg ${Number(card.variacion) < 0 ? "text-red-600": "text-green-600"} pl-9`}> {card.variacion}% </h3>
+                                        <h3 className={`text-lg ${Number(card.variacion) < 0 ? "text-red-600" : "text-green-600"} pl-9`}> {card.variacion}% </h3>
                                     </div>
                                 </div>
 

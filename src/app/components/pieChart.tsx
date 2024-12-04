@@ -3,34 +3,37 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { useTranslation } from 'next-i18next';
 import { getDataParticipacion } from '../services/empresas';
-//'Amazon', 'Google', 'Meta', 'Microsoft', 'Novartis', 'Pepsi', 'Visa', 'Walmart'
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+export const PieChart = () => {
 
-
-
-export const PieChart= ()=> {
-  
+  //Hook del traductor.
   const { t } = useTranslation();
+
+  //Implemento estados para manejar los datos del grafico.
   const [dataset, setDataset] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
   const [datos, setDatos] = useState<any[]>([]);
 
+  //Realizo una funcion para obtener los datos desde el servico.
   const obtenerDatosPieChart = async () => {
     const datos = await getDataParticipacion();
     console.log("datos", datos)
+
     let labels: string[] = []
     let dataset: number[] = []
     datos.map((empresa: any) => {
       labels.push(`${empresa.codEmpresa} ${empresa.participacionMercado}%`);
       dataset.push(empresa.participacionMercado);
     })
-    console.log(dataset)
+
     setDataset(dataset);
     setLabels(labels);
     setDatos(datos);
   }
 
+  //Realizo un hook para llamar a la funcion y cargar los datos del grafico.
   useEffect(() => {
     obtenerDatosPieChart();
   }, []);

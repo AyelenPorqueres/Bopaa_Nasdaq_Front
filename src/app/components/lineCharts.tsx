@@ -39,7 +39,7 @@ export const options = {
     },
     title: {
       display: true,
-      
+
     },
   },
 };
@@ -58,13 +58,16 @@ interface ChartData {
 interface LineChartProps {
   selectedCard: any; cantDias: number; empresas: any;
 }
+
+//Realizo una funcion para obtener los datos del grafico desde el servicio.
 const fetchChartData = async (codEmpresa: string, dias: number, setChartData: React.Dispatch<React.SetStateAction<ChartData | null>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
   setLoading(true);
   try {
+    //Obtengo los datos desde la API
     const data = await getDataGraficos(codEmpresa, dias);
-    console.log (data)
+    console.log(data)
     const labels = data.map((item: any) => item.fecha);
-    const dataset = data.map((item: any) => item.cotization); 
+    const dataset = data.map((item: any) => item.cotization);
 
     setChartData({
       labels,
@@ -85,8 +88,8 @@ const fetchChartData = async (codEmpresa: string, dias: number, setChartData: Re
   }
 };
 
-
-export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias,empresas}) => {
+//Componente principal del grafico de lineas donde incorporo un efecto para ejecutar la seleccion de la card o la cantidad de dias.
+export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias, empresas }) => {
   const { t } = useTranslation();
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -94,22 +97,22 @@ export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias,emp
 
 
   useEffect(() => {
-   
+
     if (selectedCard && cantDias) {
       fetchChartData(selectedCard.codEmpresa, cantDias, setChartData, setLoading);
-      
+
     }
   }, [selectedCard, cantDias]);
 
   if (loading || !chartData) {
-    return(
-    <div className='w-[500px]'>
-      <p >Seleccione una empresa..</p>
-    </div>
+    return (
+      <div className='w-[500px]'>
+        <p >Seleccione una empresa..</p>
+      </div>
     )
   }
 
-
+  //Renderizo el grafico de linea con sus opciones y datos.
   return (
     <>
       <div className="mb-10 mt-5 bg-[rgb(243,246,249)] ml-6 mr-6 shadow-lg w-[60%] rounded flex flex-col">
@@ -117,11 +120,11 @@ export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias,emp
           <div className="flex items-center space-x-3">
             <img src={`../images/${selectedCard.codEmpresa}.ico`} alt="" className="w-16 h-16 ml-2" />
             <p className="self-center ml-3 text-lg font-bold">{selectedCard.codEmpresa}</p>
-            <p className="self-center ml-3 text-lg ">{(Number(selectedCard.ultimaCot)*conversionRate).toFixed(2)} {currency}
+            <p className="self-center ml-3 text-lg ">{(Number(selectedCard.ultimaCot) * conversionRate).toFixed(2)} {currency}
             </p>
           </div>
           <div className="flex space-x-3 justify-end">
-        
+
             <button
               className="btn h-9 rounded-lg border-solid border-2 border[#F3F6F9] bg-[#F3F6F9] shadow-md"
               onClick={() => fetchChartData(selectedCard.codEmpresa, 1, setChartData, setLoading)} // Cambia a 1 día
@@ -134,16 +137,16 @@ export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias,emp
             >
               {t('buttons.month')}
             </button>
-          
-        </div>
-        
-      </div>
-      <div className="h-[1px] bg-slate-400 ml-2 mr-2"></div>
 
-      <div className=' p-5 w-[100%]'>
+          </div>
+
+        </div>
+        <div className="h-[1px] bg-slate-400 ml-2 mr-2"></div>
+
+        <div className=' p-5 w-[100%]'>
           <Line options={options} data={chartData} />
+        </div>
       </div>
-    </div>
     </>
 
   );

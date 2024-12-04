@@ -7,7 +7,7 @@ import { Menu } from "@/app/components/nav";
 
 
 export default function Home() {
-  
+
   return (
     <>
       <Menu></Menu>

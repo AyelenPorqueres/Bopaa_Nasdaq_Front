@@ -1,8 +1,11 @@
 'use client'
 
-// app/context/currency.context.tsx
+
 import React, { createContext, useContext, useState } from "react";
 
+
+//Realizo un context para gestionar y acceder a los datos de la moneda seleccionada y su tasa de conversion.
+//Genero una funcion para cambiar la moneda seleccionada y actualizar la tasa de conversion de manera centralizada
 interface CurrencyContextType {
   currency: string;
   conversionRate: number;
@@ -13,13 +16,13 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 
 export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currency, setCurrency] = useState("$USD");
-  const [conversionRate, setConversionRate] = useState(1); 
+  const [conversionRate, setConversionRate] = useState(1);
 
   const changeCurrency = (newCurrency: string) => {
     if (newCurrency === "$USD") {
-      setConversionRate(1); 
+      setConversionRate(1);
     } else if (newCurrency === "€EUR") {
-      setConversionRate(0.95); 
+      setConversionRate(0.95);
     }
     setCurrency(newCurrency);
   };
