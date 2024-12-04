@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@amcharts/amcharts5": "^5.10.7",
     "@heroicons/react": "^2.1.5",
     "axios": "^1.7.7",
     "chart.js": "^4.4.6",

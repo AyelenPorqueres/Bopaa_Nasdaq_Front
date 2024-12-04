@@ -15,7 +15,8 @@ import {
   Legend,
 } from 'chart.js';
 import { useTranslation } from 'next-i18next';
-import { getDataGraficos } from '../services/empresas'
+import { getDataGraficos } from '../services/empresas';
+import { useCurrency } from '../context/currency.context';
 
 
 
@@ -38,7 +39,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      
     },
   },
 };
@@ -55,7 +56,7 @@ interface ChartData {
 }
 
 interface LineChartProps {
-  selectedCard: any; cantDias: number;
+  selectedCard: any; cantDias: number; empresas: any;
 }
 const fetchChartData = async (codEmpresa: string, dias: number, setChartData: React.Dispatch<React.SetStateAction<ChartData | null>>, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
   setLoading(true);
@@ -63,13 +64,13 @@ const fetchChartData = async (codEmpresa: string, dias: number, setChartData: Re
     const data = await getDataGraficos(codEmpresa, dias);
     console.log (data)
     const labels = data.map((item: any) => item.fecha);
-    const dataset = data.map((item: any) => item.cotization); // Asegúrate de que 'cotizacion' coincide con la respuesta de la API
+    const dataset = data.map((item: any) => item.cotization); 
 
     setChartData({
       labels,
       datasets: [
         {
-          label: 'Cotizaciones',
+          label: codEmpresa,
           data: dataset,
           borderColor: 'rgb(53, 162, 235)',
           backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -85,15 +86,17 @@ const fetchChartData = async (codEmpresa: string, dias: number, setChartData: Re
 };
 
 
-export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias }) => {
+export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias,empresas}) => {
   const { t } = useTranslation();
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { conversionRate, currency } = useCurrency();
+
 
   useEffect(() => {
    
     if (selectedCard && cantDias) {
-      fetchChartData(selectedCard.title, cantDias, setChartData, setLoading);
+      fetchChartData(selectedCard.codEmpresa, cantDias, setChartData, setLoading);
       
     }
   }, [selectedCard, cantDias]);
@@ -109,32 +112,34 @@ export const LineChart: React.FC<LineChartProps> = ({ selectedCard, cantDias }) 
 
   return (
     <>
-      <div className="mb-10 mt-5 bg-[rgb(243,246,249)] ml-6 mr-6 shadow-lg rounded w-[60%] flex flex-col">
-        <div className=" flex justify-between">
-          <div className="flex">
-            <img src={selectedCard.image} alt="" className="w-16 h-16 ml-2" />
-            <p className="self-center ml-3 text-lg font-bold">{selectedCard.name}</p>
-            <p className="self-center ml-3 text-lg ">205.74 USD</p>
+      <div className="mb-10 mt-5 bg-[rgb(243,246,249)] ml-6 mr-6 shadow-lg w-[60%] rounded flex flex-col">
+        <div className=" flex justify-between items-center p-3">
+          <div className="flex items-center space-x-3">
+            <img src={`../images/${selectedCard.codEmpresa}.ico`} alt="" className="w-16 h-16 ml-2" />
+            <p className="self-center ml-3 text-lg font-bold">{selectedCard.codEmpresa}</p>
+            <p className="self-center ml-3 text-lg ">{(Number(selectedCard.ultimaCot)*conversionRate).toFixed(2)} {currency}
+            </p>
           </div>
-          <div className="flex-none  mr-4">
-          <ul className="menu menu-horizontal px-1 space-x-3">
+          <div className="flex space-x-3 justify-end">
+        
             <button
               className="btn h-9 rounded-lg border-solid border-2 border[#F3F6F9] bg-[#F3F6F9] shadow-md"
-              onClick={() => fetchChartData(selectedCard.title, 1, setChartData, setLoading)} // Cambia a 1 día
+              onClick={() => fetchChartData(selectedCard.codEmpresa, 1, setChartData, setLoading)} // Cambia a 1 día
             >
               {t('buttons.day')}
             </button>
             <button
               className="btn h-9 rounded-lg border-solid border-2 border[#F3F6F9] bg-[#F3F6F9] shadow-md"
-              onClick={() => fetchChartData(selectedCard.title, 30, setChartData, setLoading)} // Cambia a 30 días
+              onClick={() => fetchChartData(selectedCard.codEmpresa, 30, setChartData, setLoading)} // Cambia a 30 días
             >
               {t('buttons.month')}
             </button>
-          </ul>
+          
         </div>
-        <div className="h-[2px] bg-slate-400 ml-2 mr-2"></div>
         
       </div>
+      <div className="h-[1px] bg-slate-400 ml-2 mr-2"></div>
+
       <div className=' p-5 w-[100%]'>
           <Line options={options} data={chartData} />
       </div>

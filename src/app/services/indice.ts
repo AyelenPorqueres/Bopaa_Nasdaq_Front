@@ -2,9 +2,9 @@
 import { AxiosResponse } from 'axios';
 import clientAxios from './axios';
 
-export const getDataEmpresas = async (): Promise<any> => {
+export const getDataIndices= async (): Promise<any> => {
     try {        
-        const response: AxiosResponse<any, any> = await clientAxios.get('empresas/cotizacionActual');
+        const response: AxiosResponse<any, any> = await clientAxios.get('indices/getIndices');
         return response.data;
     } catch (error) {
         console.log(error);

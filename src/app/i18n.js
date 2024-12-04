@@ -11,6 +11,7 @@ i18next
                     ENGLISH: {
                         translation: {
                             titlePie: "Company's participation in stock market",
+                            titleIndex: "Stock market index",
                             subtitleFooter1: "Copyright",
                             subtitleFooter2: "All right reserved",
                             buttons: {
@@ -26,6 +27,7 @@ i18next
                     SPANISH: {
                         translation: {
                             titlePie: "Participación de la empresa en bolsa",
+                            titleIndex: "Indices bursatiles",
                             subtitleFooter1: "Derechos de autor",
                             subtitleFooter2: "Todos los derechos reservados",
                             buttons: {

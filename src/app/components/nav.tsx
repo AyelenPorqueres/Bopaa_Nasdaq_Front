@@ -3,16 +3,15 @@ import { CheckIcon, LanguageIcon } from "@heroicons/react/16/solid";
 import { useTranslation } from "next-i18next";
 import '../i18n';
 import { useState } from "react";
+import { useCurrency } from "../context/currency.context";
 
 
 
 export function Menu() {
-  const [selectedCurrency, setSelectedCurrency] = useState('$USD');
+  const {currency, changeCurrency} = useCurrency();
   const [selectedLanguage, setselectedLanguage] = useState('ENGLISH');
 
-  const handleCurrencyChange = (currency: any) => {
-    setSelectedCurrency(currency);
-  };
+
   const handleLaguageChange = (language: any) => {
     setselectedLanguage(language);
     i18n.changeLanguage(language);
@@ -34,24 +33,24 @@ export function Menu() {
          
            <li className=" h-9 rounded-lg border-solid border-2 border[#F3F6F9] bg-[#F3F6F9] shadow-md z-10" >
               <details >
-                <summary> {selectedCurrency}</summary>
+                <summary> {currency}</summary>
                 <ul className=" rounded-t-none ">
                   <li>
                     <a
                      
-                      onClick={() => handleCurrencyChange('$USD')}
+                      onClick={() => changeCurrency('$USD')}
                       
 
                     >
-                     $USD {selectedCurrency === '$USD' && <span><CheckIcon className="size-4"></CheckIcon></span>}
+                     $USD {currency === '$USD' && <span><CheckIcon className="size-4"></CheckIcon></span>}
                     </a>
                   </li>
                   <li>
                     <a
                       
-                      onClick={() => handleCurrencyChange('€EUR')}
+                      onClick={() => changeCurrency('€EUR')}
                     >
-                    €EUR{selectedCurrency === '€EUR' && <span><CheckIcon className="size-4"></CheckIcon></span>}
+                    €EUR{currency === '€EUR' && <span><CheckIcon className="size-4"></CheckIcon></span>}
                 
                     </a>
                   </li>
